@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Compass Point Tutoring</title>
+  <link rel="icon" type="image/png" href="favicon.png">
+  <meta name="theme-color" content="#1e3a5f">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      line-height: 1.6;
+      color: #2b2b2b;
+      background-color: #f7f3e9; /* parchment */
+    }
+    header {
+      background: #1e3a5f;
+      padding: 1.5rem 1rem 0.75rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* Desktop logo */
+    .logo-header {
+      width: min(700px, 90%);
+      height: auto;
+      display: block;
+    }
+
+    /* Mobile logo hidden by default */
+    .logo-header-mobile {
+      display: none;
+    }
+
+    section {
+      padding: 3rem 1.5rem;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    .hero {
+      text-align: center;
+      padding-top: 2rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      line-height: 1.15;
+      margin-bottom: 1rem;
+      color: #1e3a5f;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      color: #4a4a4a;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    /* Mobile styles */
+    @media (max-width: 700px) {
+      header {
+        padding: 1.25rem 1rem 0.5rem;
+      }
+
+      .logo-header {
+        display: none;
+      }
+
+      .logo-header-mobile {
+        display: block;
+        width: min(320px, 85%);
+        height: auto;
+      }
+
+      .hero {
+        padding-top: 1.5rem;
+      }
+
+      .hero p {
+        font-size: 1.05rem;
+      }
+    }
+    .cta {
+      margin-top: 1.5rem;
+    }
+    .cta a {
+      background: #c9a96a; /* warm accent */
+      color: #1e3a5f;
+      padding: 0.75rem 1.5rem;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: bold;
+    }
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
+    .feature {
+      padding: 1.5rem;
+    }
+    .feature h3 {
+      color: #1e3a5f;
+    }
+    .about {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    .about-photo {
+      display: flex;
+      justify-content: center;
+    }
+
+    .about-photo img {
+      width: 100%;
+      max-width: 280px;
+      border-radius: 12px;
+      display: block;
+    }
+
+    /* Mobile layout */
+    @media (max-width: 800px) {
+      .about {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .about-text {
+        order: 1;
+      }
+
+      .about-photo {
+        order: 2;
+        margin-bottom: 1rem;
+      }
+
+      .about-photo img {
+        max-width: 320px;
+      }
+    }
+    footer {
+      text-align: center;
+      padding: 2rem;
+      background: #e5dcc8;
+      font-size: 0.9rem;
+      color: #333;
+    }
+    .specialties {
+      display: flex;
+      flex-direction: column;
+      gap: 4rem;
+    }
+
+    .specialty {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem;
+      align-items: center;
+    }
+
+    .specialty.reverse {
+      direction: rtl;
+    }
+
+    .specialty.reverse .specialty-text {
+      direction: ltr;
+    }
+
+    .specialty img {
+      width: 100%;
+      aspect-ratio: 3 / 2;
+      object-fit: cover;
+      border-radius: 12px;
+      display: block;
+    }
+
+    .specialty-text h3 {
+      color: #1e3a5f;
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+    }
+
+    .specialty-text p {
+      margin-bottom: 1rem;
+      color: #444;
+    }
+
+    /* Mobile layout */
+    @media (max-width: 800px) {
+      .specialty,
+      .specialty.reverse {
+        grid-template-columns: 1fr;
+        direction: ltr;
+      }
+
+      .specialty {
+        gap: 1.5rem;
+      }
+
+      .specialty-text h3 {
+        font-size: 1.5rem;
+      }
+    }
+    .contact-card {
+      display: flex;
+      max-width: 420px;
+      margin: 2rem auto;
+      border: 1px solid #e5dcc8;
+      border-radius: 10px;
+      overflow: hidden;
+      background: #fff;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+
+    .email-link {
+      flex: 1;
+      padding: 0.9rem 1rem;
+      text-decoration: none;
+      color: #1e3a5f;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .email-link:hover {
+      background: #f7f3e9;
+    }
+
+    .copy-btn {
+      width: 52px;
+      border: none;
+      background: #1e3a5f;
+      color: white;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .copy-btn:hover {
+      background: #16304d;
+    }
+
+    .highlight {
+      padding: 3rem 1.5rem;
+      max-width: 900px;
+      margin: 2rem auto;
+    }
+
+    .highlight-inner {
+      max-width: none;
+      margin: 0;
+    }
+
+    .highlight h2 {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      color: #1e3a5f;
+    }
+
+    .highlight p {
+      margin-bottom: 1rem;
+      color: #444;
+    }
+
+    .highlight ul {
+      margin: 1rem 0 1.5rem;
+      padding-left: 1.2rem;
+      color: #444;
+    }
+
+    .highlight li {
+      margin-bottom: 0.5rem;
+    }
+
+    .card {
+      background: #ffffff;
+      border: 1px solid #e5dcc8;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+    }
+
+    .card h2,
+    .card h3 {
+      color: #1e3a5f;
+      margin-top: 0;
+    }
+
+    .card p {
+      color: #444;
+    }
+
+    .card ul {
+      color: #444;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <!-- Desktop / tablet logo -->
+  <img
+    class="logo-header"
+    src="logo-horizontal.png"
+    alt="Compass Point Tutoring Logo"
+  >
+
+  <!-- Mobile logo -->
+  <img
+    class="logo-header-mobile"
+    src="logo-stacked.png"
+    alt="Compass Point Tutoring Logo"
+  >
+</header>
+
+<section class="hero">
+  <h1>
+    Confident, Step-by-Step Tutoring in Math & Science
+  </h1>
+
+  <p>
+    Over five years of experience helping students in West Vancouver, North Vancouver, and online build confidence and understanding in math and science.
+  </p>
+
+  <div class="cta">
+    <a href="#contact">Email to Book a Session</a>
+  </div>
+</section>
+
+<section>
+  <div class="features">
+    <div class="feature card">
+      <h3>Grow with Confidence</h3>
+      <p>Students are capable of more than they think. I'll help them realize that learning is within their reach.</p>
+    </div>
+    <div class="feature card">
+      <h3>Supportive Environment</h3>
+      <p>No pressure, no judgment. Once students realize that they are safe to ask questions, the curiosity starts flowing.</p>
+    </div>
+    <div class="feature card">
+      <h3>Individual Approach</h3>
+      <p>Experience working with neurodivergent and neurotypical students, adapting to different learning styles.</p>
+    </div>
+  </div>
+</section>
+
+<section class="highlight card">
+  <div class="highlight-inner">
+    <h2>☀️ Summer Learning & Catch-Up Support ☀️</h2>
+
+    <p>
+      Summer is the ideal time to build confidence without school-year pressure.
+      I offer support for students who want to:
+    </p>
+
+    <ul>
+      <li>Review and strengthen key concepts from the past year</li>
+      <li>Preview upcoming math or science courses</li>
+      <li>Stay sharp with light, structured practice</li>
+      <li>Stay on track with summer courses while learning the material effectively</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <h2 style="text-align: center; color: #1e3a5f; margin-bottom: 3rem;">
+    Areas of Focus
+  </h2>
+
+  <div class="specialties">
+
+    <div class="specialty">
+      <img src="high-school-math.jpg" alt="High school math tutoring">
+
+      <div class="specialty-text">
+        <h3>High School Math</h3>
+
+        <p>
+          As math grows more complex in higher grades, students can start to feel lost, as gaps in their skills accumulate from earlier years.
+        </p>
+
+        <p>
+          Whether it's for Pre-Calculus, Foundations of Math, or Workplace Math, I help students find success while building up those fundamental skills, encouraging confidence and independent problem solving along the way.
+        </p>
+      </div>
+    </div>
+
+    <div class="specialty reverse">
+      <img src="primary-math.jpg" alt="Primary school math tutoring">
+
+      <div class="specialty-text">
+        <h3>Primary School Math</h3>
+
+        <p>
+          Early math education shapes how students feel about learning for years to come.
+        </p>
+
+        <p>
+          I place a strong emphasis on critical skills like computation, number sense, and problem-solving while helping students develop confidence and resilience. Laying strong foundations in primary school paves the way to achievement later on.
+        </p>
+      </div>
+    </div>
+
+    <div class="specialty">
+      <img src="online-learning.jpg" alt="Online course support">
+
+      <div class="specialty-text">
+        <h3>Online Courses</h3>
+
+        <p>
+          Online learning offers flexibility, but many students struggle to stay organized, motivated, and engaged without consistent support.
+        </p>
+
+        <p>
+          I help students stay on track with assignments, prepare for tests, and avoid falling behind, all while making sure they genuinely understand the material instead of rushing through coursework.
+        </p>
+      </div>
+    </div>
+
+    <div class="specialty reverse">
+      <img src="science-technology.jpg" alt="Science and technology tutoring">
+
+      <div class="specialty-text">
+        <h3>Science & Technology</h3>
+
+        <p>
+          I’m a former software developer with a longstanding interest in computers, science, and technology.
+        </p>
+
+        <p>
+          I provide support for high school science courses including chemistry and physics, and I enjoy incorporating coding and technology into learning whenever possible. I can also help students learn how to use modern AI tools thoughtfully and effectively as part of their education.
+        </p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="about">
+  <div class="about-photo">
+    <img src="your-photo.jpg" alt="Tutor Photo">
+  </div>
+
+  <div class="about-text">
+    <h2>About</h2>
+    <p>Math causes a lot of complicated feelings for people, and that starts in school. Students accumulate gaps in their skillset, they experience challenges that feel insurmountable, they get bored with the repetitive practice. Eventually many of them conclude that math is simply beyond them. My approach as a tutor is centred around proving the opposite: that competence, and then confidence, are possible for anyone with practice and support.</p>
+    <p>I started my career as a software developer, with a degree in Computer Science from the University of British Columbia. I've always been drawn to understanding how things work. Whether I'm solving a programming problem, learning a new subject, or helping a student work through a difficult concept, I enjoy breaking complex ideas into smaller pieces and finding the connections between them. Many students learn how to follow the steps without ever really understanding why those steps work. I want my students to understand the ideas behind the math.</p>
+    <p>When it comes to working with students, finding an individual approach for each person is one of my specialities. I emphasize a calm, friendly environment where it's safe to explore and ask questions without judgment. A lot of progression in math is halted by anxiety and insecurity, as gaps in foundational skills build up over time. If those gaps are identified and strengthened, learning becomes much easier. I find that students are more capable of learning than they usually think; most students just need to have some deeper gap or misunderstanding addressed first.</p>
+    <p>Overall, I want to see my students move forward with the confidence that they can learn whatever they set their minds to, if they have resilience and determination. Watching a student move from the mindset of "I can't do this" to "this is difficult, but I can do it" is the greatest sign of success. Along the way, some of my favourite moments happen when a student begins making their own connections, asking their own questions, and discovering that learning can be genuinely enjoyable. Curiosity is difficult to cultivate when math feels frustrating or overwhelming, but once students begin to understand the material and trust their own abilities, it emerges naturally. If a student leaves a lesson feeling a little more capable, a little more confident, and a little more curious than when they arrived, then I consider that time well spent.</p>
+  </div>
+</section>
+
+<section id="contact">
+  <h2 style="text-align: center; color: #1e3a5f;">Get in Touch</h2>
+
+  <p style="text-align: center; max-width: 700px; margin: 1rem auto;">
+    I offer tutoring in West Vancouver, North Vancouver, and online for students anywhere.
+    If you're interested in sessions or have questions, feel free to reach out. I am also happy to book a free 15-minute phone or video call to discuss the details.
+  </p>
+
+  <div class="contact-card">
+
+    <!-- Email + mailto side -->
+    <a class="email-link" href="mailto:dylan@compasspointtutoring.ca">
+      dylan@compasspointtutoring.ca
+    </a>
+
+    <!-- Copy button -->
+    <button class="copy-btn" onclick="copyEmail()">
+      <!-- simple clipboard icon (no external library) -->
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="9" y="9" width="13" height="13" rx="2"></rect>
+        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+      </svg>
+    </button>
+
+  </div>
+
+  <div style="max-width: 700px; margin: 2.5rem auto 0; color: #444;">
+    <p><strong>In your message, it helps to include:</strong></p>
+    <ul>
+      <li>Student’s grade and current course</li>
+      <li>Subject they need help with</li>
+      <li>What they’re struggling with (if known)</li>
+      <li>Preference for online or in-person sessions (West Vancouver / North Vancouver)</li>
+      <li>Your availability</li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  <p>&copy; 2026 Compass Point Tutoring</p>
+</footer>
+
+<script>
+  function copyEmail() {
+    const email = "dylan@compasspointtutoring.ca";
+    navigator.clipboard.writeText(email);
+
+    alert("Email copied to clipboard");
+  }
+</script>
+
+</body>
+</html>
